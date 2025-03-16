@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
-from pointnet2_ops import pointnet2_utils
+# from pointnet2_ops import pointnet2_utils
+from pytorch3d.ops import sample_farthest_points
 
 import logging
 
@@ -9,8 +10,9 @@ def fps(data, number):
         data B N 3
         number int
     '''
-    fps_idx = pointnet2_utils.furthest_point_sample(data, number) 
-    fps_data = pointnet2_utils.gather_operation(data.transpose(1, 2).contiguous(), fps_idx).transpose(1,2).contiguous()
+    # fps_idx = pointnet2_utils.furthest_point_sample(data, number) 
+    # fps_data = pointnet2_utils.gather_operation(data.transpose(1, 2).contiguous(), fps_idx).transpose(1,2).contiguous()
+    fps_data, _ = sample_farthest_points(points=data, K=number)
     return fps_data
 
 # https://github.com/Strawberry-Eat-Mango/PCT_Pytorch/blob/main/util.py 

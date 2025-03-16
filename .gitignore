@@ -6,3 +6,5 @@ open_clip/*
 dsconfig/*
 .vscode/*
 dsconfig/*
+data/test_datasets/*
+checkpoints/*
