@@ -22,18 +22,18 @@ def parse_args(args):
     parser.add_argument(
         "--clip-model",
         type=str,
-        default="RN50",
+        default="EVA02-E-14-plus",
         help="Name of the vision and text backbone to use.",
     )
     parser.add_argument(
         "--pc-model",
         type=str,
-        default="RN50",
+        default="eva02_base_patch14_448",
         help="Name of pointcloud backbone to use.",
     )
     parser.add_argument(
         "--pretrained",
-        default='',
+        default="checkpoints/open_clip_pytorch_model.bin",
         type=str,
         help="Use a pretrained CLIP model weights with the specified tag or file path.",
     )
@@ -74,7 +74,7 @@ def parse_args(args):
         "--workers", type=int, default=4, help="Number of dataloader workers per GPU."
     )
     parser.add_argument(
-        "--batch-size", type=int, default=64, help="Batch size per GPU."
+        "--batch-size", type=int, default=32, help="Batch size per GPU."
     )
     parser.add_argument(
         "--epochs", type=int, default=32, help="Number of epochs to train for."
@@ -263,25 +263,25 @@ def parse_args(args):
     parser.add_argument('--output-dir', default='./outputs', type=str, help='output dir')
     parser.add_argument('--pretrain_dataset_name', default='shapenet', type=str)
     parser.add_argument('--pretrain_dataset_prompt', default='shapenet_64', type=str)
-    parser.add_argument('--validate_dataset_name', default='modelnet40', type=str)
-    parser.add_argument('--validate_dataset_name_lvis', default='objaverse_lvis', type=str)
+    parser.add_argument('--validate_dataset_name', default='modelnet40_openshape', type=str)
+    parser.add_argument('--validate_dataset_name_lvis', default='objaverse_lvis_openshape', type=str)
     parser.add_argument('--validate_dataset_name_scanobjnn', default='scanobjnn_openshape', type=str)
     parser.add_argument('--validate_dataset_prompt', default='modelnet40_64', type=str)
     parser.add_argument('--openshape_setting', action='store_true', default=False, help='whether to use osaug, by default enabled with openshape.')
     parser.add_argument('--use_lvis', action='store_true', default=False, help='whether to use livs dataset.')
 
     # Pointcloud 
-    parser.add_argument('--npoints', default=8192, type=int, help='number of points used for pre-train and test.')
+    parser.add_argument('--npoints', default=10000, type=int, help='number of points used for pre-train and test.')
     parser.add_argument('--use_height', action='store_true', default=False, help='whether to use height informatio, by default enabled with PointNeXt.')
     parser.add_argument("--pc-feat-dim", type=int, default=768, help="Pointcloud feature dimension.")
-    parser.add_argument("--group-size", type=int, default=32, help="Pointcloud Transformer group size.")
+    parser.add_argument("--group-size", type=int, default=64, help="Pointcloud Transformer group size.")
     parser.add_argument("--num-group", type=int, default=512, help="Pointcloud Transformer number of groups.")
     parser.add_argument("--pc-encoder-dim", type=int, default=512, help="Pointcloud Transformer encoder dimension.")
-    parser.add_argument("--embed-dim", type=int, default=512, help="teacher embedding dimension.")
+    parser.add_argument("--embed-dim", type=int, default=1024, help="teacher embedding dimension.")
 
     # Evaluation
-    parser.add_argument('--evaluate_3d', action='store_true', help='eval 3d only')
-    parser.add_argument('--ckpt_path', default='', help='the ckpt to test 3d zero shot')
+    parser.add_argument('--evaluate_3d', action='store_true', help='eval 3d only', default=True) # default True for debugging
+    parser.add_argument('--ckpt_path', default="checkpoints/model_base.pt", help='the ckpt to test 3d zero shot')
 
     args = parser.parse_args(args)
 

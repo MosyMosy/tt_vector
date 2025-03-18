@@ -601,7 +601,7 @@ def test_zeroshot_3d_core(test_loader, validate_dataset_name, model, clip_model,
     return {'acc1': top1.avg, 'acc3': top3.avg, 'acc5': top5.avg}
 
 def test_zeroshot_3d(args, model, clip_model):
-    checkpoint = torch.load(args.ckpt_path, map_location='cpu')
+    checkpoint = torch.load(args.ckpt_path, map_location='cpu', weights_only=False)
     logging.info('loaded checkpoint {}'.format(args.ckpt_path))
     sd = checkpoint['module']
     if not args.distributed and next(iter(sd.items()))[0].startswith('module'):

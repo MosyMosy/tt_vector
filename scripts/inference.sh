@@ -24,7 +24,7 @@ else
     exit 1
 fi
 
-ckpt_path="checkpoints/model.pt"
+ckpt_path="checkpoints/model_$1.pt"
 
 # torchrun --nproc-per-node=1 main.py \
 python main.py \

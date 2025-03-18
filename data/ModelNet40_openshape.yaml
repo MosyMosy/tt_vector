@@ -1,2 +1,2 @@
 NAME: ModelNet40_openshape
-DATA_PATH: ./data/test_datasets/modelnet40
+DATA_PATH: /export/datasets/public/3d/uni3d/test_datasets/modelnet40 #./data/test_datasets/modelnet40
